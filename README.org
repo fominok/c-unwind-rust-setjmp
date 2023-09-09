@@ -1,0 +1,10 @@
+* C-unwind and setjmp/longjmp
+I heard in one chat about embedding languages into Rust that =C-unwind= just landed on
+stable and it may solve a problem with these languages that use =setjmp/longjmp= and cause
+undefined behaviour.
+
+Unfortunately, no magic happened and =longjmp= over Rust stack frame will ignore unwinding
+and no destructors will be called, that's certainly bad.
+
+See =src/multiply.c= file to comment/uncomment =longjmp= line and check stdout for destructor
+call, don't forget to =cargo clean= in between.
